@@ -1,0 +1,21 @@
+ std::ios_base::sync_with_stdio(false);
+    //    auto start = std::chrono::steady_clock::now();
+    std::vector<Edge> thisEdges;
+    std::vector<std::vector<size_t>> matrix;
+    size_t vertexNumber, edgesNumber;
+    std::cin >> vertexNumber >> edgesNumber;
+    matrix.resize(vertexNumber);
+    size_t from, to;
+    long long capacity;
+    for(size_t i = 0; i < edgesNumber; ++i) {
+        std::cin >> from >> to >> capacity;
+        thisEdges.push_back({from - 1, to - 1, capacity, 0});
+        thisEdges.push_back({to - 1, from - 1, 0, 0});
+        matrix[from - 1].push_back(2 * i);
+        matrix[to - 1].push_back(2 * i  + 1);
+    }
+    //    thisCapacities = createGraph(500, 30000);
+    Net myFirstNet = Net(thisEdges, vertexNumber, matrix);
+    myFirstNet.RelabelToFront();
+    //    std::cout << "\n And the time is "<<std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() * 0.000001;
+    return 0;
